@@ -9,6 +9,7 @@ import Protected from "./components/Protected"
 import { AuthProvider } from "./hooks/AuthProvider"
 import Stopwatch from "./components/Stopwatch";
 import ControledForm from "./components/Form/ControledForm"
+import DispatchProvider from "./hooks/DisptachProvider"
 export default function App() {
   const [count, setCount] = useState("");
   // const user = useContext(AuthContext)
@@ -18,6 +19,7 @@ export default function App() {
 
     
     <AuthProvider>
+    <DispatchProvider>
     <div className="text-3xl font-extrabold w-[90%] m-auto text-center">
       Hello world! {count}
       <button className="px-4 py-1 bg-gray-800 text-slate-100" onClick={()=>setCount(pre=>pre+1)}>+1</button>
@@ -31,6 +33,7 @@ export default function App() {
       <Route path="/controledFrom" element={<ControledForm/>}/>
       </Routes>
     </div>
+    </DispatchProvider>
     </AuthProvider>
   )
 }

@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { dispatchContext } from '../../hooks/DisptachProvider'
 const initState = {
   title: '',
   duration: '',
 }
-const From = ({ addData, editableData, updateData, dispatch }) => {
+const From = ({  editableData,  }) => {
   const [task, setTask] = useState(initState)
   const [editMode, setEditMode] = useState(false)
+  const { dispatch} = useContext(dispatchContext)
+
 
   //   update task
   function handleChange(e) {

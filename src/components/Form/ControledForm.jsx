@@ -1,44 +1,14 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import From from './From'
 import ShowList from './Showlist'
+import { dispatchContext } from '../../hooks/DisptachProvider'
 
-const taskDb = [
-  {
-    id: 1,
-    title: 'react',
-    duration: '2min',
-  },
-  {
-    id: 2,
-    title: 'redux',
-    duration: '5min',
-  },
-]
+
 
 const ControlForm = () => {
   const [editableData, setEditableData] = useState(null)
+const {data } = useContext(dispatchContext)
 
-  const taskReducer = (data, action) => {
-    switch (action.type) {
-      case 'ADD':
-        return [...data, { ...action.payload, id: data.length + 1 }]
-
-      case 'DELETE':
-        return data.filter((ele) => ele.id !== action.payload)
-
-      case 'UPDATE':
-        const index = data.findIndex((ele) => ele.id === action.payload.id)
-        const newData = [...data]
-        newData.splice(index, 1, action.payload)
-
-        return newData
-
-      default:
-        return data
-    }
-  }
-
-  const [data, dispatch] = useReducer(taskReducer, taskDb)
   // const [data, setData] = useState(taskDb)
 
   // function addData(taskObj) {
@@ -64,22 +34,21 @@ const ControlForm = () => {
   // }
 
   return (
-    <div>
+    <>
       <h1>ControlForm</h1>
 
-      <From editableData={editableData} dispatch={dispatch} />
+      <From editableData={editableData}  />
 
       <ul>
         {data.map((list) => (
           <ShowList
             key={list.id}
             {...list}
-            dispatch={dispatch}
             editData={editData}
           />
         ))}
       </ul>
-    </div>
+    </>
   )
 }
 
