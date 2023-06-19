@@ -3,30 +3,31 @@ const initState = {
   title: '',
   duration: '',
 }
-const From = ({ addData, editableData, updateData }) => {
+const From = ({ addData, editableData, updateData, dispatch }) => {
   const [task, setTask] = useState(initState)
   const [editMode, setEditMode] = useState(false)
 
-//   update task
+  //   update task
   function handleChange(e) {
     setTask({ ...task, [e.target.title]: e.target.value })
   }
-// form submit
+  // form submit
   function handleSubmit(e) {
     e.preventDefault()
     // console.log(task)
     if (editMode) {
-      updateData(task)
-    } 
-    else {
-        console.log(task)
-      addData(task)
+      // updateData(task)
+      dispatch({ type: 'UPDATE', payload: task })
+    } else {
+      console.log(task)
+      // addData(task)
+      dispatch({ type: 'ADD', payload: task })
     }
     setTask(initState)
     setEditMode(false)
   }
 
-//    
+  //
   useEffect(() => {
     if (editableData) {
       setTask(editableData)
